@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Efeito scanline hacker */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(212, 175, 55, 0.03),
+    rgba(212, 175, 55, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+code {
+  font-family: 'Orbitron', sans-serif;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  max-width: 1920px;
+  max-height: 1080px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 1920px) {
+  #root {
+    max-width: 100%;
+  }
+}
+
+@media (max-height: 1080px) {
+  #root {
+    max-height: 100vh;
+  }
+}
+

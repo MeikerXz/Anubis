@@ -1,0 +1,25 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 400px;
+}
+
+.empty-message {
+  color: #d4af37;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  line-height: 2;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  opacity: 0.7;
+}
+

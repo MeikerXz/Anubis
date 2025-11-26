@@ -1,0 +1,37 @@
+# Como configurar o arquivo .env
+# 
+# 1. Crie um arquivo chamado ".env" na raiz do projeto (mesma pasta do package.json)
+# 2. Cole as linhas abaixo e ajuste os valores:
+
+# ============================================
+# CONFIGURAÇÃO DO BANCO DE DADOS
+# ============================================
+DATABASE_URL=postgresql://usuario:senha@host:porta/database?sslmode=require
+
+# ============================================
+# CONFIGURAÇÃO DO BACKEND PARA MOBILE (IMPORTANTE!)
+# ============================================
+# A URL do backend remoto que o aplicativo mobile vai usar
+# Substitua pela URL real do seu backend hospedado (ex: Render.com, Heroku, etc.)
+# IMPORTANTE: Configure isso ANTES de gerar o APK!
+REACT_APP_API_URL=https://seu-servidor-backend.onrender.com
+
+# ============================================
+# CONFIGURAÇÃO DO APK (Opcional)
+# ============================================
+# URL onde o APK será baixado pelos usuários
+REACT_APP_APK_URL=https://seu-servidor.com/anubis.apk
+
+# 
+# IMPORTANTE SOBRE O MOBILE: 
+# - A variável REACT_APP_API_URL é CRÍTICA para o funcionamento do app mobile
+# - Ela precisa apontar para um backend hospedado remotamente (não localhost)
+# - O backend precisa estar online e acessível pela internet
+# - Configure esta variável ANTES de fazer o build do React
+# - Após configurar, faça: npm run build && npm run mobile:sync
+# 
+# IMPORTANTE GERAL: 
+# - O arquivo .env já está no .gitignore (não será commitado)
+# - Após criar/editar, faça rebuild: npm run build
+# - Use REACT_APP_ no início das variáveis que quer usar no React
+

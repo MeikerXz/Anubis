@@ -1,0 +1,73 @@
+.tag-filter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.tag-filter-label {
+  color: #ffd700;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 
+    0 0 5px rgba(255, 215, 0, 0.6),
+    0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.tag-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag-button {
+  padding: 8px 14px;
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  color: #d4af37;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 1px;
+  box-shadow: 
+    0 0 5px rgba(212, 175, 55, 0.2),
+    inset 0 0 5px rgba(212, 175, 55, 0.05);
+  text-transform: uppercase;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.tag-button:hover {
+  border-color: #ffd700;
+  background: rgba(212, 175, 55, 0.15);
+  box-shadow: 
+    0 0 10px rgba(212, 175, 55, 0.5),
+    0 0 20px rgba(212, 175, 55, 0.3),
+    inset 0 0 10px rgba(212, 175, 55, 0.1);
+  color: #ffd700;
+  transform: translateY(-2px) scale(1.05);
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.tag-button.active {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(184, 134, 11, 0.25));
+  border-color: #ffd700;
+  color: #ffd700;
+  box-shadow: 
+    0 0 15px rgba(212, 175, 55, 0.7),
+    0 0 30px rgba(212, 175, 55, 0.4),
+    inset 0 0 15px rgba(212, 175, 55, 0.2);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  transform: scale(1.05);
+}
+

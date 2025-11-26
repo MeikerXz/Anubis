@@ -1,0 +1,478 @@
+.app {
+  width: 100%;
+  max-width: 1920px;
+  height: 100vh;
+  max-height: 1080px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(184, 134, 11, 0.03) 0%, transparent 50%);
+}
+
+@media (max-width: 1920px) {
+  .app {
+    max-width: 100%;
+  }
+}
+
+@media (max-height: 1080px) {
+  .app {
+    max-height: 100vh;
+  }
+}
+
+.background-logs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: visible;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Grid hacker mais visível */
+.background-logs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(212, 175, 55, 0.08) 2px,
+      rgba(212, 175, 55, 0.08) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(184, 134, 11, 0.06) 2px,
+      rgba(184, 134, 11, 0.06) 4px
+    );
+  animation: scan 20s linear infinite;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100px);
+  }
+}
+
+.background-logs::after {
+  content: '> [SYSTEM] ANUBIS v2.0.1 INITIALIZED\A> [BOOT] Loading kernel modules...\A> [NETWORK] Establishing secure connection...\A> [DATABASE] PostgreSQL connection established\A> [AUTH] Session manager activated\A> [SECURITY] Firewall protocols enabled\A> [CRYPTO] AES-256 encryption initialized\A> [INFO] Scanning user credentials...\A> [SUCCESS] Authentication successful\A> [LOAD] Retrieving data cache...\A> [DEBUG] Memory allocation: 1247MB\A> [INFO] System performance: OPTIMAL\A> [MONITOR] Active connections: 3\A> [WARN] Low memory threshold: 85%\A> [STATUS] All services operational\A> [SYNC] Data synchronization complete\A> [LOG] Event log buffer cleared\A> [PROCESS] Background tasks running\A> [NETWORK] Latency: 12ms\A> [SECURITY] Encryption: AES-256\A> [API] Endpoints validated\A> [CACHE] Memory cache refreshed\A> [INFO] User activity logged\A> [MONITOR] System health: GREEN\A> [PROC] Task scheduler active\A> [NET] Port 8080 listening\A> [DB] Query optimized\A> [CACHE] Hit rate: 92%\A> [AUTH] Token validated\A> [LOG] Entry 1047 written\A> [MONITOR] CPU: 23%\A> [SEC] Threat scan complete\A> [SYNC] Replication OK\A> [API] Request queued\A> [MEM] Allocated: 512MB\A> [DISK] I/O: 45MB/s\A> [NET] Packet loss: 0%\A> [DB] Index rebuild complete\A> [CACHE] Expired entries cleared\A> [AUTH] Session renewed\A> [LOG] Rotation scheduled\A> [MONITOR] Alert threshold: OK\A> [SCAN] Deep scan initiated...\A> [ANALYZE] Processing 1,247 data packets\A> [ENCRYPT] Secure channel established\A> [VALIDATE] Certificate chain verified\A> [ROUTE] Network topology mapped\A> [BACKUP] Incremental backup started\A> [SYNC] Replication lag: 0ms\A> [OPTIMIZE] Query plan cache updated\A> [MONITOR] Disk usage: 67%\A> [NETWORK] Bandwidth: 847Mbps\A> [SECURITY] Intrusion detection: ACTIVE\A> [LOG] Audit trail: 2,341 entries\A> [PROCESS] Worker threads: 8 active\A> [MEMORY] Heap size: 2.1GB\A> [CACHE] LRU eviction: 0 items\A> [DATABASE] Connection pool: 12/20\A> [API] Rate limit: 847/1000 req/min\A> [MONITOR] Response time: 23ms avg\A> [SECURITY] Failed login attempts: 0\A> [SYSTEM] Uptime: 47h 23m 15s\A> [HEALTH] All systems: NOMINAL';
+  position: absolute;
+  top: 100vh;
+  left: 30px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.6);
+  white-space: pre;
+  line-height: 2.2;
+  letter-spacing: 1px;
+  animation: scroll-logs-up 50s linear infinite, glitch-text 15s infinite;
+  pointer-events: none;
+  text-shadow: 
+    0 0 12px rgba(212, 175, 55, 1),
+    0 0 24px rgba(212, 175, 55, 0.8),
+    0 0 36px rgba(212, 175, 55, 0.6),
+    0 0 48px rgba(212, 175, 55, 0.4);
+  z-index: 1;
+  will-change: transform;
+}
+
+/* Glitches à direita dos logs */
+.glitch-right-1,
+.glitch-right-2,
+.glitch-right-3 {
+  position: absolute;
+  right: 50px;
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.4);
+  white-space: pre;
+  line-height: 2;
+  letter-spacing: 1px;
+  pointer-events: none;
+  text-shadow: 
+    0 0 8px rgba(212, 175, 55, 0.8),
+    0 0 16px rgba(212, 175, 55, 0.6);
+  z-index: 1;
+  opacity: 0;
+  animation: glitch-appear 8s infinite;
+}
+
+.glitch-right-1 {
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.glitch-right-2 {
+  top: 50%;
+  animation-delay: 2.5s;
+}
+
+.glitch-right-3 {
+  top: 75%;
+  animation-delay: 5s;
+}
+
+@keyframes glitch-appear {
+  0%, 85% {
+    opacity: 0;
+    transform: translateX(20px) scaleY(0.8);
+  }
+  5%, 80% {
+    opacity: 0.4;
+    transform: translateX(0) scaleY(1);
+  }
+  6%, 79% {
+    opacity: 0.6;
+    transform: translateX(-2px) scaleY(1.05);
+  }
+  7%, 78% {
+    opacity: 0.3;
+    transform: translateX(2px) scaleY(0.95);
+  }
+  8%, 77% {
+    opacity: 0.5;
+    transform: translateX(0) scaleY(1);
+  }
+}
+
+@keyframes glitch-text {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-1px);
+  }
+  40% {
+    transform: translateX(1px);
+  }
+  60% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(-0.5px);
+  }
+}
+
+@keyframes scroll-logs-up {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  2% {
+    opacity: 0.6;
+  }
+  5% {
+    opacity: 0.7;
+  }
+  95% {
+    opacity: 0.7;
+  }
+  98% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-600vh);
+    opacity: 0;
+  }
+}
+
+.app-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 20px 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.98) 0%,
+    rgba(26, 26, 26, 0.95) 100%
+  );
+  border-bottom: 2px solid #d4af37;
+  box-shadow: 
+    0 4px 20px rgba(212, 175, 55, 0.4),
+    0 0 40px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  position: relative;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+  min-height: 80px;
+  overflow: visible;
+}
+
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.5),
+    transparent
+  );
+  animation: header-scan 3s linear infinite;
+}
+
+@keyframes header-scan {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.filters-container {
+  padding: 20px 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.95) 0%,
+    rgba(26, 26, 26, 0.9) 100%
+  );
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 
+    0 2px 10px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(212, 175, 55, 0.05);
+  position: relative;
+  z-index: 3;
+  backdrop-filter: blur(5px);
+}
+
+.filters-container::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.4),
+    transparent
+  );
+  animation: filter-scan 4s linear infinite;
+}
+
+@keyframes filter-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 1),
+    0 0 20px rgba(212, 175, 55, 0.8),
+    0 0 30px rgba(212, 175, 55, 0.6),
+    0 0 40px rgba(212, 175, 55, 0.4),
+    0 0 50px rgba(212, 175, 55, 0.2);
+  letter-spacing: 6px;
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  animation: title-glow 3s ease-in-out infinite alternate;
+  margin: 0;
+}
+
+@keyframes title-glow {
+  0% {
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.8),
+      0 0 20px rgba(212, 175, 55, 0.6),
+      0 0 30px rgba(212, 175, 55, 0.4);
+  }
+  100% {
+    text-shadow: 
+      0 0 15px rgba(255, 215, 0, 1),
+      0 0 30px rgba(212, 175, 55, 0.8),
+      0 0 45px rgba(212, 175, 55, 0.6),
+      0 0 60px rgba(212, 175, 55, 0.4);
+  }
+}
+
+.header-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: flex-end;
+}
+
+.header-controls > * {
+  flex-shrink: 0;
+}
+
+.admin-btn,
+.logout-btn,
+.request-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.15));
+  border: 2px solid #d4af37;
+  color: #ffd700;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 
+    0 0 10px rgba(212, 175, 55, 0.4),
+    inset 0 0 10px rgba(212, 175, 55, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.request-btn {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(34, 197, 94, 0.15));
+  border-color: #4ade80;
+  color: #4ade80;
+  box-shadow: 
+    0 0 10px rgba(74, 222, 128, 0.4),
+    inset 0 0 10px rgba(74, 222, 128, 0.1);
+}
+
+.admin-btn::before,
+.logout-btn::before,
+.request-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(212, 175, 55, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.5s;
+}
+
+.admin-btn:hover::before,
+.logout-btn:hover::before,
+.request-btn:hover::before {
+  left: 100%;
+}
+
+.admin-btn:hover,
+.logout-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(212, 175, 55, 0.25));
+  border-color: #ffd700;
+  color: #ffd700;
+  box-shadow: 
+    0 0 20px rgba(212, 175, 55, 0.8),
+    0 0 40px rgba(212, 175, 55, 0.4),
+    inset 0 0 20px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px) scale(1.02);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+.request-btn:hover {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.3), rgba(34, 197, 94, 0.25));
+  border-color: #4ade80;
+  color: #4ade80;
+  box-shadow: 
+    0 0 20px rgba(74, 222, 128, 0.8),
+    0 0 40px rgba(74, 222, 128, 0.4),
+    inset 0 0 20px rgba(74, 222, 128, 0.2);
+  transform: translateY(-2px) scale(1.02);
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
+}
+
+.admin-btn:active,
+.logout-btn:active,
+.request-btn:active {
+  transform: translateY(0);
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.main-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.5);
+  border-left: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4af37, #b8860b);
+  border-radius: 5px;
+  box-shadow: 
+    0 0 5px rgba(212, 175, 55, 0.5),
+    inset 0 0 5px rgba(212, 175, 55, 0.3);
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd700, #d4af37);
+  box-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.7),
+    inset 0 0 10px rgba(255, 215, 0, 0.4);
+}
+

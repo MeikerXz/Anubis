@@ -1,0 +1,106 @@
+{
+  "name": "anubis",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de links com interface hacker",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:3000 && electron .\"",
+    "dev:react": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "build:electron": "electron-builder",
+    "postinstall": "electron-builder install-app-deps && electron-rebuild",
+    "criar-admin": "node criar-admin.js",
+    "diagnose": "node diagnose-connection.js",
+    "init-db": "node init-database.js",
+    "clean": "rm -rf node_modules build dist .server-port package-lock.json",
+    "mobile:init": "npm run build && npx cap add android",
+    "mobile:init:add": "npx cap add android",
+    "mobile:sync": "npx cap sync",
+    "mobile:open": "npx cap open android",
+    "mobile:build": "npm run build && npx cap sync",
+    "mobile:build:sync": "npx cap sync android",
+    "mobile:apk": "node build-apk.js",
+    "mobile:apk:release": "node build-apk.js --release",
+    "mobile:apk:debug": "cd android && .\\gradlew.bat assembleDebug && cd ..",
+    "mobile:apk:gradle": "cd android && .\\gradlew.bat assembleDebug && cd ..",
+    "mobile:check-java": "node verificar-java.js",
+    "mobile:config-java": "powershell -ExecutionPolicy Bypass -File configurar-java.ps1"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "desktop",
+    "mobile",
+    "android",
+    "capacitor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/cli": "^7.4.4",
+    "@capacitor/core": "^7.4.4",
+    "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "electron-updater": "^6.6.2",
+    "express": "^4.21.2",
+    "pg": "^8.16.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.1",
+    "astral-regex": "^2.0.0",
+    "concurrently": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^39.2.3",
+    "electron-builder": "^26.0.12",
+    "react-scripts": "5.0.1",
+    "wait-on": "^9.0.3"
+  },
+  "build": {
+    "appId": "com.anubis.app",
+    "productName": "ANUBIS",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "server.js",
+      "database.js",
+      "config.js",
+      "port-finder.js",
+      "criar-admin.js",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": "https://seu-servidor.com/updates"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

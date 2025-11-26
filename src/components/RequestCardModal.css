@@ -1,0 +1,124 @@
+.request-form {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: body-fade-in 0.7s ease-out 0.3s both;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #d4af37;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #e0e0e0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  background: rgba(26, 26, 26, 0.95);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.error-message {
+  padding: 15px;
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.5);
+  color: #ff4444;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  animation: error-shake 0.5s;
+}
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.success-message {
+  color: #4ade80;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  line-height: 2;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.cancel-btn,
+.submit-btn {
+  flex: 1;
+  padding: 12px 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid;
+}
+
+.cancel-btn {
+  background: transparent;
+  border-color: rgba(212, 175, 55, 0.5);
+  color: #d4af37;
+}
+
+.cancel-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #d4af37;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border-color: #d4af37;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ffd700, #d4af37);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

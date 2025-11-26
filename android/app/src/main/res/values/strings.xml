@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ANUBIS</string>
+    <string name="title_activity_main">ANUBIS</string>
+    <string name="package_name">com.anubis.app</string>
+    <string name="custom_url_scheme">com.anubis.app</string>
+</resources>
