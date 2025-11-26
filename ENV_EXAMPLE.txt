@@ -4,23 +4,46 @@
 # 2. Cole as linhas abaixo e ajuste os valores:
 
 # ============================================
-# CONFIGURAÇÃO DO BANCO DE DADOS
+# CONFIGURAÇÃO DO BANCO DE DADOS (Render)
 # ============================================
+# Para deploy no Render, use a DATABASE_URL gerada pelo Postgres do próprio Render
+# Exemplo de formato (NÃO use este valor em produção, é só modelo):
+# DATABASE_URL=postgresql://usuario:senha@host:porta/database?sslmode=require
 DATABASE_URL=postgresql://usuario:senha@host:porta/database?sslmode=require
+
+# Alternativa (se NÃO usar DATABASE_URL, menos recomendado no Render):
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=anubis
+DB_USER=postgres
+DB_PASSWORD=minha_senha_segura
+
+# Em produção (Render), o código já força SSL automaticamente quando detectar host do Render
+NODE_ENV=production
+
+# Usuário admin padrão criado automaticamente (pode mudar aqui ou direto no Render)
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=admin123
 
 # ============================================
 # CONFIGURAÇÃO DO BACKEND PARA MOBILE (IMPORTANTE!)
 # ============================================
 # A URL do backend remoto que o aplicativo mobile vai usar
-# Substitua pela URL real do seu backend hospedado (ex: Render.com, Heroku, etc.)
-# IMPORTANTE: Configure isso ANTES de gerar o APK!
-REACT_APP_API_URL=https://seu-servidor-backend.onrender.com
+# Substitua pela URL real do seu backend hospedado no Render
+# Exemplo com Render:
+#   se o backend for https://anubis-vdnn.onrender.com, use:
+REACT_APP_API_URL=https://anubis-vdnn.onrender.com
 
 # ============================================
 # CONFIGURAÇÃO DO APK (Opcional)
 # ============================================
-# URL onde o APK será baixado pelos usuários
+# URL onde o APK será baixado pelos usuários (se você hospedar o APK em algum lugar)
 REACT_APP_APK_URL=https://seu-servidor.com/anubis.apk
+
+# Opcional: restringir CORS no backend
+# Liste as origens separadas por vírgula (sem espaços) que podem acessar a API
+# Exemplo:
+# CORS_ALLOWED_ORIGINS=https://meu-site.com,https://outro-dominio.com
 
 # 
 # IMPORTANTE SOBRE O MOBILE: 
