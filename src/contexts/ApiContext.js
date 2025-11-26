@@ -9,13 +9,28 @@ const PORTS_TO_TRY = [3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009, 3010
 // Detectar se está rodando em ambiente mobile (Capacitor)
 const isMobile = () => {
   // Verificar Capacitor primeiro (mais confiável)
-  if (window.Capacitor !== undefined || window.cordova !== undefined) {
-    return true;
+  if (typeof window !== 'undefined') {
+    // Verificar Capacitor
+    if (window.Capacitor !== undefined || window.cordova !== undefined) {
+      return true;
+    }
+    
+    // Verificar se está rodando dentro do Capacitor WebView
+    if (window.CapacitorWeb !== undefined) {
+      return true;
+    }
+    
+    // Verificar se está em ambiente nativo (Android/iOS)
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera || '';
+    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+      // Verificar se não é Electron (que também pode ter user agent mobile)
+      if (!userAgent.includes('Electron')) {
+        return true;
+      }
+    }
   }
   
-  // Verificar user agent como fallback
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  return false;
 };
 
 // Obter URL da API baseada no ambiente
@@ -88,9 +103,11 @@ async function findServerPort() {
 async function testRemoteUrl(url) {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // Aumentado para 10 segundos
+    // Timeout aumentado para 30s - Render.com free tier pode demorar para "acordar"
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
     
     console.log(`🔍 Testando conexão com: ${url}/health`);
+    console.log(`   (Timeout: 30s - Render.com pode demorar para iniciar)`);
     
     const response = await fetch(`${url}/health`, {
       method: 'GET',
@@ -118,8 +135,12 @@ async function testRemoteUrl(url) {
     }
   } catch (error) {
     if (error.name === 'AbortError') {
-      console.error(`❌ Timeout ao conectar à API (10s): ${url}`);
-      console.error(`   Verifique se o backend está online e acessível`);
+      console.error(`❌ Timeout ao conectar à API (30s): ${url}`);
+      console.error(`   Possíveis causas:`);
+      console.error(`   - Backend está offline ou não responde`);
+      console.error(`   - Render.com: Serviço pode estar "adormecido" (free tier)`);
+      console.error(`   - Primeira requisição após inatividade pode demorar 30-60s`);
+      console.error(`   💡 Solução: Configure Uptime Robot para manter o serviço ativo`);
     } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
       console.error(`❌ Erro de rede ao conectar à API: ${url}`);
       console.error(`   Possíveis causas:`);
@@ -127,6 +148,7 @@ async function testRemoteUrl(url) {
       console.error(`   - URL incorreta ou não configurada`);
       console.error(`   - Problema de CORS no servidor`);
       console.error(`   - Sem conexão com a internet`);
+      console.error(`   - Render.com: Serviço pode estar "adormecido"`);
     } else {
       console.error(`❌ Erro ao conectar à API: ${error.message}`);
     }
@@ -178,9 +200,12 @@ export function ApiProvider({ children }) {
         } else {
           setApiUrl(url);
           setIsConnected(false);
+          const isRender = url.includes('render.com');
           setConnectionError({
             type: 'connection_failed',
-            message: `Não foi possível conectar ao backend em: ${url}. Verifique se o servidor está online e a URL está correta.`,
+            message: isRender 
+              ? `Não foi possível conectar ao backend. O serviço no Render.com pode estar "adormecido" (free tier). A primeira requisição pode demorar 30-60 segundos. Tente novamente ou configure Uptime Robot para manter o serviço ativo.`
+              : `Não foi possível conectar ao backend em: ${url}. Verifique se o servidor está online e a URL está correta.`,
             url: url
           });
           console.error(`❌ Não foi possível conectar à API: ${url}`);

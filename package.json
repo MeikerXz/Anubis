@@ -12,6 +12,7 @@
     "build:electron": "electron-builder",
     "criar-admin": "node criar-admin.js",
     "diagnose": "node diagnose-connection.js",
+    "diagnose:mobile": "node diagnose-mobile.js",
     "init-db": "node init-database.js",
     "clean": "rm -rf node_modules build dist .server-port package-lock.json",
     "mobile:init": "npm run build && npx cap add android",

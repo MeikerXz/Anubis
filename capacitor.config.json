@@ -6,7 +6,10 @@
   "server": {
     "androidScheme": "https",
     "hostname": "localhost",
-    "allowNavigation": []
+    "allowNavigation": [
+      "https://*",
+      "http://*"
+    ]
   },
   "plugins": {
     "SplashScreen": {
