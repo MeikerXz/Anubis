@@ -10,7 +10,6 @@
     "dev:react": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "build:electron": "electron-builder",
-    "postinstall": "electron-builder install-app-deps && electron-rebuild",
     "criar-admin": "node criar-admin.js",
     "diagnose": "node diagnose-connection.js",
     "init-db": "node init-database.js",
